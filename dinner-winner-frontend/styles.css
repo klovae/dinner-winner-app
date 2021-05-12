@@ -1,0 +1,41 @@
+body {
+  font-family: 'Roboto', sans-serif;
+ }
+
+ #all-wrapper {
+   width: 75%;
+   margin: 0 auto;
+   display: grid;
+   grid-gap: 3px;
+   grid-template-columns: repeat(12, 1fr);
+   grid-template-rows: 130px auto 100px;
+   grid-template-areas:
+      "h h h h h h h h h h h h"
+      "n n n c c c c c c c c c"
+      "f f f f f f f f f f f f"
+ }
+
+ #header {
+  width: 100%;
+  margin-top: 30px;
+  grid-area: h;
+ }
+
+ #nav-wrap {
+  font-size: 1.2em;
+  font-weight: 600;
+  grid-area: n;
+  margin-left: 66px;
+ }
+
+ #content-wrap {
+   grid-area: c;
+ }
+
+ #footer {
+   grid-area: f;
+ }
+
+ #logo {
+  width: 275px;
+ }
