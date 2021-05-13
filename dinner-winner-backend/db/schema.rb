@@ -10,17 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_12_022049) do
+ActiveRecord::Schema.define(version: 2021_05_13_164839) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
 
   create_table "meals", force: :cascade do |t|
     t.string "title"
@@ -37,10 +30,15 @@ ActiveRecord::Schema.define(version: 2021_05_12_022049) do
     t.string "title"
     t.text "description"
     t.integer "likes"
-    t.bigint "category_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["category_id"], name: "index_plans_on_category_id"
+  end
+
+  create_table "plans_tags", force: :cascade do |t|
+    t.bigint "plan_id"
+    t.bigint "tag_id"
+    t.index ["plan_id"], name: "index_plans_tags_on_plan_id"
+    t.index ["tag_id"], name: "index_plans_tags_on_tag_id"
   end
 
   create_table "ratings", force: :cascade do |t|
@@ -51,7 +49,13 @@ ActiveRecord::Schema.define(version: 2021_05_12_022049) do
     t.index ["plan_id"], name: "index_ratings_on_plan_id"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   add_foreign_key "meals", "plans"
-  add_foreign_key "plans", "categories"
   add_foreign_key "ratings", "plans"
 end
