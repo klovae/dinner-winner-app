@@ -22,23 +22,15 @@ ActiveRecord::Schema.define(version: 2021_05_12_022049) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "days", force: :cascade do |t|
-    t.integer "number"
-    t.bigint "plan_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["plan_id"], name: "index_days_on_plan_id"
-  end
-
   create_table "meals", force: :cascade do |t|
     t.string "title"
     t.string "recipe_url"
     t.text "description"
     t.string "meal"
-    t.bigint "day_id", null: false
+    t.bigint "plan_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["day_id"], name: "index_meals_on_day_id"
+    t.index ["plan_id"], name: "index_meals_on_plan_id"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -59,8 +51,7 @@ ActiveRecord::Schema.define(version: 2021_05_12_022049) do
     t.index ["plan_id"], name: "index_ratings_on_plan_id"
   end
 
-  add_foreign_key "days", "plans"
-  add_foreign_key "meals", "days"
+  add_foreign_key "meals", "plans"
   add_foreign_key "plans", "categories"
   add_foreign_key "ratings", "plans"
 end
