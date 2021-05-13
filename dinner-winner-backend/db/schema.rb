@@ -26,19 +26,19 @@ ActiveRecord::Schema.define(version: 2021_05_13_164839) do
     t.index ["plan_id"], name: "index_meals_on_plan_id"
   end
 
+  create_table "plan_tags", force: :cascade do |t|
+    t.bigint "plan_id"
+    t.bigint "tag_id"
+    t.index ["plan_id"], name: "index_plan_tags_on_plan_id"
+    t.index ["tag_id"], name: "index_plan_tags_on_tag_id"
+  end
+
   create_table "plans", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.integer "likes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "plans_tags", force: :cascade do |t|
-    t.bigint "plan_id"
-    t.bigint "tag_id"
-    t.index ["plan_id"], name: "index_plans_tags_on_plan_id"
-    t.index ["tag_id"], name: "index_plans_tags_on_tag_id"
   end
 
   create_table "ratings", force: :cascade do |t|
