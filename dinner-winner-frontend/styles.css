@@ -1,5 +1,6 @@
 body {
   font-family: 'Roboto', sans-serif;
+  color: #353535;
  }
 
  #all-wrapper {
@@ -15,7 +16,7 @@ body {
       "f f f f f f f f f f f f"
  }
 
- #header {
+ header {
   width: 100%;
   margin-top: 30px;
   grid-area: h;
@@ -32,10 +33,30 @@ body {
    grid-area: c;
  }
 
- #footer {
+ footer {
+   margin-top: 100px;
    grid-area: f;
+ }
+
+ div.meal {
+   background-color: #FFD987;
+   border-radius: 3px;
+   padding: 10px;
+   box-sizing: border-box;
  }
 
  #logo {
   width: 275px;
  }
+
+ /* LINKS */
+ a {
+  text-decoration: none;
+  color: #eb8526;
+  transition: color 0.2s linear;
+  }
+
+ a:hover {
+    text-decoration: none;
+    color: #000;
+  }
