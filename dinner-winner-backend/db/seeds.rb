@@ -24,3 +24,7 @@ fasting = Tag.create(name: 'fasting', description: 'Meals are in this plan are s
 plan_a = Plan.create(title: 'Gluten-free Mexican', description: 'Gluten-free, mostly mexican inspired dishes for fast and healthy meals', likes: 2)
 plan_a.tags = [quick_30, no_gluten]
 plan_a.save
+
+plan_b = Plan.create(title: 'Meatless Eating For Meat-Eaters', description: 'Meals designed to appeal to non-vegetarians', likes: 0)
+plan_b.tags = [quick_60, veggie]
+plan_b.save

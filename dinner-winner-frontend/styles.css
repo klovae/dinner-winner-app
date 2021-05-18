@@ -9,10 +9,10 @@ body {
    display: grid;
    grid-gap: 3px;
    grid-template-columns: repeat(12, 1fr);
-   grid-template-rows: 130px auto 100px;
+   grid-template-rows: auto auto 100px;
    grid-template-areas:
-      "h h h h h h h h h h h h"
-      "n n n c c c c c c c c c"
+      "h h h h n n n n n n n n"
+      "c c c c c c c c c c c c"
       "f f f f f f f f f f f f"
  }
 
@@ -42,11 +42,37 @@ body {
    background-color: #FFD987;
    border-radius: 3px;
    padding: 10px;
+   margin: 10px;
    box-sizing: border-box;
  }
 
  #logo {
   width: 275px;
+ }
+ 
+ #footer-spatula {
+   width: 40px;
+   display: block;
+   margin: 0 auto;
+ }
+
+ footer > p {
+   text-align: center;
+ }
+
+ /* TAGS */
+
+ .tag-container-div {
+   display: flex;
+
+ }
+
+ .tag-div {
+   background-color: #000;
+   color: #FFF;
+   padding: 5px;
+   margin: .2rem;
+   border-radius: 3px;
  }
 
  /* LINKS */
