@@ -28,7 +28,12 @@ function createPlan(planObj) {
   description.innerText = planObj['description'];
   div.appendChild(description);
 
+  let mealsContainer = document.createElement('div');
+  mealsContainer.className = "meals-container"
+  div.appendChild(mealsContainer)
+
   addTags(div, planObj);
+  addMealsList(mealsContainer, planObj);
 
   document.getElementById('content-wrap').appendChild(div);
   
@@ -38,14 +43,45 @@ function addTags(div, planObj) {
   let tagContainer = document.createElement('div');
   tagContainer.className = 'tag-container-div'
 
-  for (const tag of planObj['tags']) {
-    let tagDiv = document.createElement('div')
-    tagDiv.className = 'tag-div'
-    tagDiv.setAttribute('data-tag-id', tag['id'])
-    tagDiv.innerText = tag['name']
+  for (const tag of planObj.tags) {
+    let tagDiv = document.createElement('div');
+    tagDiv.className = 'tag-div';
+    tagDiv.setAttribute('data-tag-id', tag.id);
+    tagDiv.innerText = tag.name;
     tagContainer.appendChild(tagDiv)
   }
 
   div.appendChild(tagContainer);
 
+}
+
+function addMealsList(mealsContainer, planObj) {
+  let breakfasts = document.createElement('div');
+  breakfasts.innerHTML = '<h4>Breakfasts</h4>'
+  mealsContainer.appendChild(breakfasts);
+
+  let lunches = document.createElement('div');
+  lunches.innerHTML = '<h4>Lunches</h4>'
+  mealsContainer.appendChild(lunches);
+
+  let dinners = document.createElement('div');
+  dinners.innerHTML = '<h4>Dinners</h4>'
+  mealsContainer.appendChild(dinners);
+
+  let mealArray = planObj.meals;
+  breakfastArray = mealArray.filter(meal => meal.meal === "breakfast");
+  if (breakfastArray.length > 0) {
+    breakfastArray.forEach(element => addMeal(breakfasts, element))
+  }
+    
+}
+
+function addMeal(container, mealObj) {
+  let mealDiv = document.createElement('div');
+  mealDiv.setAttribute('data-meal-id', mealObj.id)
+    
+  let title = document.createElement('p')
+  title.innerText = mealObj.title
+  mealDiv.appendChild(title)
+  container.appendChild(mealDiv)
 }
