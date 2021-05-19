@@ -7,7 +7,7 @@ body {
    width: 75%;
    margin: 0 auto;
    display: grid;
-   grid-gap: 3px;
+   gap: 3px;
    grid-template-columns: repeat(12, 1fr);
    grid-template-rows: auto auto 100px;
    grid-template-areas:
@@ -46,6 +46,11 @@ body {
    box-sizing: border-box;
  }
 
+ h4 {
+  margin-block-start: .33em;
+  margin-block-end: .33em;
+ }
+
  #logo {
   width: 275px;
  }
@@ -64,7 +69,6 @@ body {
 
  .tag-container-div {
    display: flex;
-
  }
 
  .tag-div {
@@ -73,6 +77,19 @@ body {
    padding: 5px;
    margin: .2rem;
    border-radius: 3px;
+ }
+
+ /* MEALS */
+
+ .meals-container {
+   display: flex;
+   column-gap: 5px;
+   grid-template-columns: 1fr 1fr 1fr;
+   margin-bottom: 20px;
+ }
+
+ .meal-div {
+   width: 100%;
  }
 
  /* LINKS */

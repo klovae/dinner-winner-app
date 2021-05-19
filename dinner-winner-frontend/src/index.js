@@ -56,22 +56,9 @@ function addTags(div, planObj) {
 }
 
 function addMealsList(mealsContainer, planObj) {
-  let breakfasts = document.createElement('div');
-  breakfasts.innerHTML = '<h4>Breakfasts</h4>'
-  mealsContainer.appendChild(breakfasts);
-
-  let lunches = document.createElement('div');
-  lunches.innerHTML = '<h4>Lunches</h4>'
-  mealsContainer.appendChild(lunches);
-
-  let dinners = document.createElement('div');
-  dinners.innerHTML = '<h4>Dinners</h4>'
-  mealsContainer.appendChild(dinners);
-
   let mealArray = planObj.meals;
-  breakfastArray = mealArray.filter(meal => meal.meal === "breakfast");
-  if (breakfastArray.length > 0) {
-    breakfastArray.forEach(element => addMeal(breakfasts, element))
+  if (mealArray.length > 0) {
+    mealArray.forEach(element => addMeal(mealsContainer, element))
   }
     
 }
