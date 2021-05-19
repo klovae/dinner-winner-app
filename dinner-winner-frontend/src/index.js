@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3000'
+const BASE_URL = 'http://localhost:3000/api'
 const PLANS_URL = `${BASE_URL}/plans`
 
 
@@ -8,12 +8,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function getPlans () {
   fetch(PLANS_URL)
-  .then(function(response) {
-    return response.json()
-  })
-  .then(function(json) {
-    const plansObject = json;
-    for (const plan of plansObject) {
+  .then(response => response.json())
+  .then(plans => {
+    for (const plan of plans) {
       createPlan(plan)
     }
   })
@@ -44,6 +41,7 @@ function addTags(div, planObj) {
   for (const tag of planObj['tags']) {
     let tagDiv = document.createElement('div')
     tagDiv.className = 'tag-div'
+    tagDiv.setAttribute('data-tag-id', tag['id'])
     tagDiv.innerText = tag['name']
     tagContainer.appendChild(tagDiv)
   }

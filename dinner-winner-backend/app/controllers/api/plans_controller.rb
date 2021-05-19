@@ -1,4 +1,4 @@
-class PlansController < ApplicationController
+class Api::PlansController < ApplicationController
 
   def index
     plans = Plan.all

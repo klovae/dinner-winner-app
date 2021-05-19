@@ -7,7 +7,7 @@ class PlanSerializer
     options = {
       include: {
         tags: {
-          only: [:name]
+          only: [:id, :name]
         },
         meals: {
           only: [:id, :title, :recipe_url, :description, :meal]
