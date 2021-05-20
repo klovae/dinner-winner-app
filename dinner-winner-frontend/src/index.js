@@ -6,6 +6,25 @@ document.addEventListener('DOMContentLoaded', () => {
   getPlans()
 })
 
+createButton = document.getElementById('create-button')
+createButton.addEventListener('click', (e) => {
+  addFormBlock(e.currentTarget)
+})
+
+function addFormBlock(refElement) {
+  let formBlock = document.createElement('div')
+  formBlock.className = 'form-block'
+
+  formBlock.innerHTML = `
+    <form id="create-plan-form">
+    <input id='input-title' type="text" name="title" value="" placeholder="Enter the name of your plan here" class="textbox">
+    <input id="input-description" name="description" value="" placeholder="Describe your meal plan in a sentence" class="textbox">
+    <input type="submit" value="Add Plan">
+  
+  `
+  refElement.insertAdjacentElement('afterEnd', formBlock)
+}
+
 function getPlans () {
   fetch(PLANS_URL)
   .then(response => response.json())
@@ -66,9 +85,11 @@ function addMealsList(mealsContainer, planObj) {
 function addMeal(container, mealObj) {
   let mealDiv = document.createElement('div');
   mealDiv.setAttribute('data-meal-id', mealObj.id)
+  mealDiv.className = 'meal-div'
     
-  let title = document.createElement('p')
-  title.innerText = mealObj.title
-  mealDiv.appendChild(title)
+  mealDiv.innerHTML =  `
+    <a href="${mealObj.recipe_url}">${mealObj.title}</a>
+    <p>${mealObj.notes}</p>
+  `
   container.appendChild(mealDiv)
 }
