@@ -10,7 +10,7 @@ class PlanSerializer
           only: [:id, :name]
         },
         meals: {
-          only: [:id, :title, :recipe_url, :description, :meal]
+          only: [:id, :title, :recipe_url, :description]
         }
         
       }, except: [:created_at, :updated_at]
