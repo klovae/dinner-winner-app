@@ -114,5 +114,9 @@ function postFetch(title, description) {
       description: description
     })
   })
+  .then(response => response.json())
+  .then(plan => {
+    console.log(plan);
+  })
 
 }
