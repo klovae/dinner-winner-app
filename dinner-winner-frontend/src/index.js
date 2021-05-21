@@ -103,5 +103,16 @@ function formHandler(e) {
 }
 
 function postFetch(title, description) {
-  
+  fetch(PLANS_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      title: title,
+      description: description
+    })
+  })
+
 }
