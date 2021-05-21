@@ -1,9 +1,11 @@
 const BASE_URL = 'http://localhost:3000/api'
 const PLANS_URL = `${BASE_URL}/plans`
-
+const TAGS_URL = `${BASE_URL}/tags`
+const TAG_DATA = getTags()
 
 document.addEventListener('DOMContentLoaded', () => {
   getPlans()
+  getTags()
 })
 
 function getPlans () {
@@ -13,6 +15,22 @@ function getPlans () {
     for (const plan of plans) {
       createPlan(plan)
     }
+  })
+}
+
+function getTags () {
+  fetch(TAGS_URL)
+  .then(response => response.json())
+  .then(tags => {
+    tagArray = []
+    for (const tag of tags) {
+      tagArray.push({
+        id: tag.id,
+        name: tag.name,
+        description: tag.description
+      }) 
+    }
+    return tagArray
   })
 }
 
@@ -39,7 +57,7 @@ function createPlan(planObj) {
   if (planObj.meals) {
   addMealsList(mealsContainer, planObj);
   }
-  
+
   document.getElementById('content-wrap').appendChild(div);
   
 }
