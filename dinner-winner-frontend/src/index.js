@@ -32,9 +32,14 @@ function createPlan(planObj) {
   mealsContainer.className = "meals-container"
   div.appendChild(mealsContainer)
 
+  if (planObj.tags) {
   addTags(div, planObj);
-  addMealsList(mealsContainer, planObj);
+  }
 
+  if (planObj.meals) {
+  addMealsList(mealsContainer, planObj);
+  }
+  
   document.getElementById('content-wrap').appendChild(div);
   
 }
@@ -83,16 +88,16 @@ createButton.addEventListener('click', (e) => {
 })
 
 function addFormBlock(refElement) {
-  let formBlock = document.createElement('div')
-  formBlock.className = 'form-block'
+  let formBlock = document.createElement('div');
+  formBlock.setAttribute('id', 'form-block');
 
   formBlock.innerHTML = `
     <form id="create-plan-form">
     <input id='input-title' type="text" name="title" value="" placeholder="Enter the name of your plan here" class="textbox">
     <input id="input-description" type="text" name="description" value="" placeholder="Describe your meal plan in a sentence" class="textbox">
     <input type="submit" id="form-submit"value="Submit Plan"> 
-  `
-  refElement.insertAdjacentElement('afterEnd', formBlock)
+  `;
+  refElement.insertAdjacentElement('afterEnd', formBlock);
 }
 
 function formHandler(e) {
@@ -116,7 +121,8 @@ function postFetch(title, description) {
   })
   .then(response => response.json())
   .then(plan => {
-    console.log(plan);
+    createPlan(plan)
+    document.querySelector('#form-block').remove()
   })
 
 }
