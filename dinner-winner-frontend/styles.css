@@ -51,7 +51,7 @@ h4 {
   margin-block-end: .33em;
 }
 
-button {
+button, input[type="submit"] {
   border: none;
   background-color: #ffb510;
   border-radius: 3px;
@@ -114,11 +114,30 @@ a:hover {
 /* FORM */
 .form-wrap {
   background-color: #ffb510;
-  display: inline-block;  
+  width:fit-content;
   border-radius: 3px;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 input {
-  display: block;
+  outline: none;
   margin: 5px;
+  border: 2px white;
+}
+
+form input[type="text"] {
+  padding: 12px;
+  display: block;
+  border-bottom: 3px solid #888;
+  width: 300px;
+  box-sizing: border-box;
+  font-size: .9em;
+  margin: 6px;
+  font-family: 'Roboto', sans-serif;
+}
+
+form input[type="submit"] {
+  background-color: #353535;
+  color: #FFFFFF
 }

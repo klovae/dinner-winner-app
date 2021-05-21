@@ -6,25 +6,6 @@ document.addEventListener('DOMContentLoaded', () => {
   getPlans()
 })
 
-createButton = document.getElementById('create-button')
-createButton.addEventListener('click', (e) => {
-  addFormBlock(e.currentTarget)
-})
-
-function addFormBlock(refElement) {
-  let formBlock = document.createElement('div')
-  formBlock.className = 'form-block'
-
-  formBlock.innerHTML = `
-    <form id="create-plan-form">
-    <input id='input-title' type="text" name="title" value="" placeholder="Enter the name of your plan here" class="textbox">
-    <input id="input-description" name="description" value="" placeholder="Describe your meal plan in a sentence" class="textbox">
-    <input type="submit" value="Add Plan">
-  
-  `
-  refElement.insertAdjacentElement('afterEnd', formBlock)
-}
-
 function getPlans () {
   fetch(PLANS_URL)
   .then(response => response.json())
@@ -92,4 +73,35 @@ function addMeal(container, mealObj) {
     <p>${mealObj.notes}</p>
   `
   container.appendChild(mealDiv)
+}
+
+createButton = document.getElementById('create-button')
+createButton.addEventListener('click', (e) => {
+  addFormBlock(e.currentTarget)
+  planForm = document.getElementById('create-plan-form')
+  planForm.addEventListener('submit', (e) => formHandler(e))
+})
+
+function addFormBlock(refElement) {
+  let formBlock = document.createElement('div')
+  formBlock.className = 'form-block'
+
+  formBlock.innerHTML = `
+    <form id="create-plan-form">
+    <input id='input-title' type="text" name="title" value="" placeholder="Enter the name of your plan here" class="textbox">
+    <input id="input-description" type="text" name="description" value="" placeholder="Describe your meal plan in a sentence" class="textbox">
+    <input type="submit" id="form-submit"value="Submit Plan"> 
+  `
+  refElement.insertAdjacentElement('afterEnd', formBlock)
+}
+
+function formHandler(e) {
+  e.preventDefault();
+  const titleInput = document.querySelector('#input-title').value;
+  const descriptionInput = document.querySelector('#input-description').value;
+  postFetch(titleInput, descriptionInput)
+}
+
+function postFetch(title, description) {
+  
 }
