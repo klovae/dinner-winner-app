@@ -1,11 +1,11 @@
 const BASE_URL = 'http://localhost:3000/api'
 const PLANS_URL = `${BASE_URL}/plans`
 const TAGS_URL = `${BASE_URL}/tags`
-const TAG_DATA = getTags()
+const TAG_DATA = []
 
 document.addEventListener('DOMContentLoaded', () => {
   getPlans()
-  getTags()
+  getTagList()
 })
 
 function getPlans () {
@@ -18,19 +18,17 @@ function getPlans () {
   })
 }
 
-function getTags () {
+function getTagList () {
   fetch(TAGS_URL)
   .then(response => response.json())
   .then(tags => {
-    tagArray = []
     for (const tag of tags) {
-      tagArray.push({
+      TAG_DATA.push({
         id: tag.id,
         name: tag.name,
         description: tag.description
       }) 
     }
-    return tagArray
   })
 }
 
@@ -113,19 +111,43 @@ function addFormBlock(refElement) {
     <form id="create-plan-form">
     <input id='input-title' type="text" name="title" value="" placeholder="Enter the name of your plan here" class="textbox">
     <input id="input-description" type="text" name="description" value="" placeholder="Describe your meal plan in a sentence" class="textbox">
-    <input type="submit" id="form-submit"value="Submit Plan"> 
+    <label>Tags</label><br>
+    ${addTagChecks()} <br>
+    <input type="submit" id="form-submit" value="Submit Plan"> 
   `;
   refElement.insertAdjacentElement('afterEnd', formBlock);
+}
+
+function addTagChecks() {
+  let tagChecks = ""
+  for (const tag of TAG_DATA) {
+    tagChecks += `<label for="tag_ids_${tag.id}">${tag.name}</label>
+    <input type="checkbox" value="${tag.id}" class="tag-checks id="tag_ids_${tag.id}">`
+  }
+  return tagChecks
 }
 
 function formHandler(e) {
   e.preventDefault();
   const titleInput = document.querySelector('#input-title').value;
   const descriptionInput = document.querySelector('#input-description').value;
-  postFetch(titleInput, descriptionInput)
+  const tagInput = checkTags()
+  debugger
+  postFetch(titleInput, descriptionInput, tagInput)
 }
 
-function postFetch(title, description) {
+function checkTags() {
+  tagBoxes = document.getElementsByClassName('tag-checks')
+  tagsToAdd = [] /* this may be syntactically clearer as filter */
+  for (const tag of tagBoxes) {
+    if (tag.checked) {
+      tagsToAdd.push(tag.value)
+    }
+  }
+  return tagsToAdd
+}
+
+function postFetch(title, description, tags) {
   fetch(PLANS_URL, {
     method: "POST",
     headers: {
@@ -134,7 +156,8 @@ function postFetch(title, description) {
     },
     body: JSON.stringify({
       title: title,
-      description: description
+      description: description,
+      tags: tags
     })
   })
   .then(response => response.json())
