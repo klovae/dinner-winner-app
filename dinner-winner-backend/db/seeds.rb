@@ -9,6 +9,7 @@
 Meal.delete_all
 Tag.delete_all
 Plan.delete_all
+PlanTag.delete_all
 
 
 keto = Tag.create(name: 'keto', description: 'Complies with ketogenic diet guidelines: meals are extremely low in carbs, typically high in fat')

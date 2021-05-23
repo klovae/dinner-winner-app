@@ -157,7 +157,7 @@ function postFetch(title, description, tags) {
     body: JSON.stringify({
       title: title,
       description: description,
-      tags: tags
+      tag_ids: tags
     })
   })
   .then(response => response.json())

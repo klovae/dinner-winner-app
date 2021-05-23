@@ -12,7 +12,11 @@ class Api::PlansController < ApplicationController
       likes: 0
     )
 
-    render json: new_plan
+    params[:tag_ids].each do |tag_id|
+      new_plan.tags << Tag.find_by(id: tag_id)
+    end
+
+    render json: PlanSerializer.new(new_plan).to_serialized_json
   end
 
 end
