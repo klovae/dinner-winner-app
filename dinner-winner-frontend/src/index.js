@@ -49,7 +49,7 @@ function createPlan(planObj) {
   div.appendChild(mealsContainer)
 
   if (planObj.tags) {
-  addTags(div, planObj);
+    addTags(div, planObj);
   }
 
   if (planObj.meals) {
@@ -116,7 +116,7 @@ function addFormBlock(refElement) {
     ${addMealInputs()}
     </div>
     <label>Add Tags</label><br>
-    ${addTagChecks()}<br>
+    ${addTagCheckboxes()}<br>
     <input type="submit" id="form-submit" value="Submit Plan"> 
   `;
   refElement.insertAdjacentElement('afterEnd', formBlock);
@@ -142,7 +142,7 @@ function addMealToForm() {
   mealForm.insertAdjacentHTML('beforeend', addMealInputs())
 }
 
-function addTagChecks() {
+function addTagCheckboxes() {
   let tagChecks = ""
   for (const tag of TAG_DATA) {
     tagChecks += `<label for="tag_ids_${tag.id}">${tag.name}</label>
@@ -155,14 +155,14 @@ function formHandler(e) {
   e.preventDefault();
   const titleInput = document.querySelector('#input-title').value;
   const descriptionInput = document.querySelector('#input-description').value;
-  const tagInput = checkTags()
-  debugger
-  postFetch(titleInput, descriptionInput, tagInput)
+  const tagInput = collectTags();
+  const mealInput = collectMeals();
+  postFetch(titleInput, descriptionInput, tagInput, mealInput)
 }
 
-function checkTags() {
-  tagBoxes = document.getElementsByClassName('tag-checks')
-  tagsToAdd = [] /* this may be syntactically clearer as filter */
+function collectTags() {
+  tagBoxes = document.getElementsByClassName('tag-checks');
+  tagsToAdd = []; /* this may be syntactically clearer as filter */
   for (const tag of tagBoxes) {
     if (tag.checked) {
       tagsToAdd.push(tag.value)
@@ -171,7 +171,23 @@ function checkTags() {
   return tagsToAdd
 }
 
-function postFetch(title, description, tags) {
+function collectMeals() {
+  meals = document.getElementsByClassName('meal-form-div');
+  mealArray = [];
+  if (meals.length > 0) {
+    for (const meal of meals) {
+      mealArray.push(
+        { title: meal.querySelector('.meal-title').value,
+          recipe_url: meal.querySelector('.meal-recipe-url').value,
+          notes: meal.querySelector('.meal-notes').value
+        }
+      )
+    }
+  }
+  return mealArray
+}
+
+function postFetch(title, description, tags, meals) {
   fetch(PLANS_URL, {
     method: "POST",
     headers: {
@@ -181,7 +197,8 @@ function postFetch(title, description, tags) {
     body: JSON.stringify({
       title: title,
       description: description,
-      tag_ids: tags
+      tag_ids: tags,
+      meal_data: meals
     })
   })
   .then(response => response.json())
