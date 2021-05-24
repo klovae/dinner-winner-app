@@ -6,11 +6,8 @@ class Api::PlansController < ApplicationController
   end
 
   def create
-    new_plan = Plan.create(
-      title: params[:title],
-      description: params[:description],
-      likes: 0
-    )
+    new_plan = Plan.create(plan_params)
+
     if params[:tag_ids].length > 0
       params[:tag_ids].each do |tag_id|
         new_plan.tags << Tag.find_by(id: tag_id)
@@ -18,6 +15,15 @@ class Api::PlansController < ApplicationController
     end
 
     render json: PlanSerializer.new(new_plan).to_serialized_json
+  end
+
+  def plan_params
+    params.permit(
+      :title, 
+      :description,
+      meals_attributes: [
+        :title, :recipe_url, :notes
+      ])
   end
 
 end

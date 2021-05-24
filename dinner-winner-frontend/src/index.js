@@ -103,6 +103,8 @@ createButton.addEventListener('click', (e) => {
   planForm.addEventListener('submit', (e) => formHandler(e))
 })
 
+/* FORM CREATION AND DYNAMIC UPDATING */
+
 function addFormBlock(refElement) {
   let formBlock = document.createElement('div');
   formBlock.setAttribute('id', 'form-block');
@@ -151,12 +153,15 @@ function addTagCheckboxes() {
   return tagChecks
 }
 
+/* Form Submission and Input Data Collection */
+
 function formHandler(e) {
   e.preventDefault();
   const titleInput = document.querySelector('#input-title').value;
   const descriptionInput = document.querySelector('#input-description').value;
   const tagInput = collectTags();
   const mealInput = collectMeals();
+  debugger
   postFetch(titleInput, descriptionInput, tagInput, mealInput)
 }
 
@@ -197,8 +202,8 @@ function postFetch(title, description, tags, meals) {
     body: JSON.stringify({
       title: title,
       description: description,
-      tag_ids: tags,
-      meal_data: meals
+      meals_attributes: meals,
+      tag_ids: tags
     })
   })
   .then(response => response.json())
