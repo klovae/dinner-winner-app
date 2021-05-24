@@ -111,18 +111,24 @@ function addFormBlock(refElement) {
     <form id="create-plan-form">
     <input id='input-title' type="text" name="title" value="" placeholder="Enter the name of your plan here" class="textbox">
     <input id="input-description" type="text" name="description" value="" placeholder="Describe your meal plan in a sentence" class="textbox">
-    <label>Add Meals</label><div class="add icon"></div><br>
-    ${addMealInputs()}<br>
+    <label>Add Meals</label><div class="add icon" id="add-meal-to-form"></div><br>
+    <div id="meal-input-container">
+    ${addMealInputs()}
+    </div>
     <label>Add Tags</label><br>
     ${addTagChecks()}<br>
     <input type="submit" id="form-submit" value="Submit Plan"> 
   `;
   refElement.insertAdjacentElement('afterEnd', formBlock);
+  const addMealButton = document.querySelector('#add-meal-to-form')
+  addMealButton.addEventListener('click', (e) => {
+    addMealToForm()
+  })
 }
 
 function addMealInputs() {
   let mealInput =  `
-    <div class="meal-form-container">
+    <div class='meal-form-div'>
       <input class="meal-title" type="text" name="title" value="" placeholder="Enter the name or description of the recipe here" class="textbox">
       <input class="meal-recipe-url" type="text" name="recipe-url" value="" placeholder="Full recipe URL, including https://" class="textbox">
       <input class="meal-notes" type="text" name="notes" value="" placeholder="Recipe notes, e.g. prep info, ingredient substitutions, etc.">
@@ -131,11 +137,16 @@ function addMealInputs() {
   return mealInput
 }
 
+function addMealToForm() {
+  const mealForm = document.querySelector("#meal-input-container");
+  mealForm.insertAdjacentHTML('beforeend', addMealInputs())
+}
+
 function addTagChecks() {
   let tagChecks = ""
   for (const tag of TAG_DATA) {
     tagChecks += `<label for="tag_ids_${tag.id}">${tag.name}</label>
-    <input type="checkbox" value="${tag.id}" class="tag-checks id="tag_ids_${tag.id}">`
+    <input type="checkbox" value="${tag.id}" class="tag-checks">`
   }
   return tagChecks
 }

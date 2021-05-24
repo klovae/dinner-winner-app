@@ -146,9 +146,9 @@ form input[type="checkbox"] {
   cursor: pointer;
 }
 
-div.meal-form-container {
+div.meal-form-div {
   margin-left: 5px;
-  margin-bottom: 3px;
+  margin-bottom: 10px;
   border-left: 10px #353535 solid;
 }
 
