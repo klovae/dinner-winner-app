@@ -181,12 +181,17 @@ function collectMeals() {
   mealArray = [];
   if (meals.length > 0) {
     for (const meal of meals) {
-      mealArray.push(
-        { title: meal.querySelector('.meal-title').value,
-          recipe_url: meal.querySelector('.meal-recipe-url').value,
-          notes: meal.querySelector('.meal-notes').value
-        }
-      )
+      let mealTitle = meal.querySelector('.meal-title').value
+      let mealUrl = meal.querySelector('.meal-recipe-url').value
+      let mealNotes = meal.querySelector('.meal-notes').value
+      if (mealTitle && mealUrl) {
+        mealArray.push(
+          { title: mealTitle,
+            recipe_url: mealUrl,
+            notes: mealNotes
+          }
+        )
+      }
     }
   }
   return mealArray

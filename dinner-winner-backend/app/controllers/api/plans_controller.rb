@@ -17,6 +17,8 @@ class Api::PlansController < ApplicationController
     render json: PlanSerializer.new(new_plan).to_serialized_json
   end
 
+  private
+
   def plan_params
     params.permit(
       :title, 
