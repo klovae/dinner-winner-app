@@ -20,7 +20,7 @@ class Api::PlansController < ApplicationController
   private
 
   def plan_params
-    params.permit(
+    params.require(:plan).permit(
       :title, 
       :description,
       meals_attributes: [
