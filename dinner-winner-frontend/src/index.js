@@ -111,11 +111,24 @@ function addFormBlock(refElement) {
     <form id="create-plan-form">
     <input id='input-title' type="text" name="title" value="" placeholder="Enter the name of your plan here" class="textbox">
     <input id="input-description" type="text" name="description" value="" placeholder="Describe your meal plan in a sentence" class="textbox">
-    <label>Tags</label><br>
-    ${addTagChecks()} <br>
+    <label>Add Meals</label><div class="add icon"></div><br>
+    ${addMealInputs()}<br>
+    <label>Add Tags</label><br>
+    ${addTagChecks()}<br>
     <input type="submit" id="form-submit" value="Submit Plan"> 
   `;
   refElement.insertAdjacentElement('afterEnd', formBlock);
+}
+
+function addMealInputs() {
+  let mealInput =  `
+    <div class="meal-form-container">
+      <input class="meal-title" type="text" name="title" value="" placeholder="Enter the name or description of the recipe here" class="textbox">
+      <input class="meal-recipe-url" type="text" name="recipe-url" value="" placeholder="Full recipe URL, including https://" class="textbox">
+      <input class="meal-notes" type="text" name="notes" value="" placeholder="Recipe notes, e.g. prep info, ingredient substitutions, etc.">
+    </div>
+  `
+  return mealInput
 }
 
 function addTagChecks() {

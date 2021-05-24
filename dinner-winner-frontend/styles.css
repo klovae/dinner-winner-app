@@ -130,7 +130,7 @@ form input[type="text"] {
   padding: 12px;
   display: block;
   border-bottom: 3px solid #888;
-  width: 300px;
+  width: 400px;
   box-sizing: border-box;
   font-size: .9em;
   margin: 6px;
@@ -141,3 +141,35 @@ form input[type="submit"] {
   background-color: #353535;
   color: #FFFFFF
 }
+
+form input[type="checkbox"] {
+  cursor: pointer;
+}
+
+div.meal-form-container {
+  margin-left: 5px;
+  margin-bottom: 3px;
+  border-left: 10px #353535 solid;
+}
+
+div.add {
+  background-image: url(assets/add.png);
+  background-size: contain;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+}
+
+div.add:hover {
+  background-image: url(assets/add-gry.png);
+}
+
+
+div.icon {
+  background-color: transparent;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  margin-left: 5px;
+  font-size: 0px;
+} 
