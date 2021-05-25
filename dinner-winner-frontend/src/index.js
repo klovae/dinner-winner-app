@@ -13,7 +13,8 @@ function getPlans () {
   .then(response => response.json())
   .then(plans => {
     for (const plan of plans) {
-      createPlan(plan)
+      let newPlan = new Plan(plan)
+      newPlan.render()
     }
   })
 }
@@ -32,33 +33,6 @@ function getTagList () {
   })
 }
 
-function createPlan(planObj) {
-  let div = document.createElement('div');
-  div.className = 'plan';
-
-  let title = document.createElement('h3');
-  title.innerText = planObj['title']
-  div.appendChild(title)
-
-  let description = document.createElement('p');
-  description.innerText = planObj['description'];
-  div.appendChild(description);
-
-  let mealsContainer = document.createElement('div');
-  mealsContainer.className = "meals-container"
-  div.appendChild(mealsContainer)
-
-  if (planObj.tags) {
-    addTags(div, planObj);
-  }
-
-  if (planObj.meals) {
-  addMealsList(mealsContainer, planObj);
-  }
-
-  document.getElementById('content-wrap').appendChild(div);
-  
-}
 
 function addTags(div, planObj) {
   let tagContainer = document.createElement('div');
