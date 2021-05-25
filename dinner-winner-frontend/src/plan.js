@@ -30,10 +30,10 @@ class Plan {
     /* if (this.tags) {
       addTags(div, this);
     }
-  
+  */
     if (this.meals) {
-    addMealsList(mealsContainer, this);
-    } */
+      this.meals.forEach(meal => meal.render(mealsContainer))
+    }
   
     document.getElementById('content-wrap').appendChild(div);
     

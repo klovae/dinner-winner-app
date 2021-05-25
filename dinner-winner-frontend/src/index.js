@@ -33,7 +33,6 @@ function getTagList () {
   })
 }
 
-
 function addTags(div, planObj) {
   let tagContainer = document.createElement('div');
   tagContainer.className = 'tag-container-div'
@@ -48,26 +47,6 @@ function addTags(div, planObj) {
 
   div.appendChild(tagContainer);
 
-}
-
-function addMealsList(mealsContainer, planObj) {
-  let mealArray = planObj.meals;
-  if (mealArray.length > 0) {
-    mealArray.forEach(element => addMeal(mealsContainer, element))
-  }
-    
-}
-
-function addMeal(container, mealObj) {
-  let mealDiv = document.createElement('div');
-  mealDiv.setAttribute('data-meal-id', mealObj.id)
-  mealDiv.className = 'meal-div'
-    
-  mealDiv.innerHTML =  `
-    <a href="${mealObj.recipe_url}">${mealObj.title}</a>
-    <p>${mealObj.notes}</p>
-  `
-  container.appendChild(mealDiv)
 }
 
 createButton = document.getElementById('create-button')
