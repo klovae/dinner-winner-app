@@ -144,6 +144,8 @@ form input[type="submit"] {
 
 form input[type="checkbox"] {
   cursor: pointer;
+  margin-left: 2px;
+  margin-right: 12px;
 }
 
 div.meal-form-div {

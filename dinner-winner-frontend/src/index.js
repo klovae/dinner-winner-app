@@ -1,100 +1,7 @@
-const BASE_URL = 'http://localhost:3000/api'
-const PLANS_URL = `${BASE_URL}/plans`
-const TAGS_URL = `${BASE_URL}/tags`
-const TAG_DATA = []
-
 document.addEventListener('DOMContentLoaded', () => {
-  getPlans()
-  getTagList()
+  Tag.getTags()
+  Plan.getPlans()
 })
-
-function getPlans () {
-  fetch(PLANS_URL)
-  .then(response => response.json())
-  .then(plans => {
-    for (const plan of plans) {
-      createPlan(plan)
-    }
-  })
-}
-
-function getTagList () {
-  fetch(TAGS_URL)
-  .then(response => response.json())
-  .then(tags => {
-    for (const tag of tags) {
-      TAG_DATA.push({
-        id: tag.id,
-        name: tag.name,
-        description: tag.description
-      }) 
-    }
-  })
-}
-
-function createPlan(planObj) {
-  let div = document.createElement('div');
-  div.className = 'plan';
-
-  let title = document.createElement('h3');
-  title.innerText = planObj['title']
-  div.appendChild(title)
-
-  let description = document.createElement('p');
-  description.innerText = planObj['description'];
-  div.appendChild(description);
-
-  let mealsContainer = document.createElement('div');
-  mealsContainer.className = "meals-container"
-  div.appendChild(mealsContainer)
-
-  if (planObj.tags) {
-    addTags(div, planObj);
-  }
-
-  if (planObj.meals) {
-  addMealsList(mealsContainer, planObj);
-  }
-
-  document.getElementById('content-wrap').appendChild(div);
-  
-}
-
-function addTags(div, planObj) {
-  let tagContainer = document.createElement('div');
-  tagContainer.className = 'tag-container-div'
-
-  for (const tag of planObj.tags) {
-    let tagDiv = document.createElement('div');
-    tagDiv.className = 'tag-div';
-    tagDiv.setAttribute('data-tag-id', tag.id);
-    tagDiv.innerText = tag.name;
-    tagContainer.appendChild(tagDiv)
-  }
-
-  div.appendChild(tagContainer);
-
-}
-
-function addMealsList(mealsContainer, planObj) {
-  let mealArray = planObj.meals;
-  if (mealArray.length > 0) {
-    mealArray.forEach(element => addMeal(mealsContainer, element))
-  }
-    
-}
-
-function addMeal(container, mealObj) {
-  let mealDiv = document.createElement('div');
-  mealDiv.setAttribute('data-meal-id', mealObj.id)
-  mealDiv.className = 'meal-div'
-    
-  mealDiv.innerHTML =  `
-    <a href="${mealObj.recipe_url}">${mealObj.title}</a>
-    <p>${mealObj.notes}</p>
-  `
-  container.appendChild(mealDiv)
-}
 
 createButton = document.getElementById('create-button')
 createButton.addEventListener('click', (e) => {
@@ -146,7 +53,7 @@ function addMealToForm() {
 
 function addTagCheckboxes() {
   let tagChecks = ""
-  for (const tag of TAG_DATA) {
+  for (const tag of ALL_TAGS) {
     tagChecks += `<label for="tag_ids_${tag.id}">${tag.name}</label>
     <input type="checkbox" value="${tag.id}" class="tag-checks">`
   }
@@ -213,7 +120,8 @@ function postFetch(title, description, tags, meals) {
   })
   .then(response => response.json())
   .then(plan => {
-    createPlan(plan)
+    let newPlan = new Plan(plan)
+    newPlan.render()
     document.querySelector('#form-block').remove()
   })
 
