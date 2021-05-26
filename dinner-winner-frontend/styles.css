@@ -125,6 +125,10 @@ a:hover {
   box-sizing: border-box;
 }
 
+#add-meal-form {
+  margin-bottom: 20px;
+}
+
 input {
   outline: none;
   margin: 5px;

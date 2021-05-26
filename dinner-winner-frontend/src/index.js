@@ -60,7 +60,7 @@ function addTagCheckboxes() {
   return tagChecks
 }
 
-/* Form Submission and Input Data Collection */
+/* Plan Create Form Submission and Input Data Collection */
 
 function formHandler(e) {
   e.preventDefault();
@@ -125,4 +125,29 @@ function postFetch(title, description, tags, meals) {
     document.querySelector('#form-block').remove()
   })
 
+}
+
+/* Plan Update Form and Input Data Functions */
+
+function createPlanUpdateForm(mealsContainer, plan_id) {
+  mealsContainer.insertAdjacentHTML('beforebegin', `
+    <form id="add-meal-form">
+    <input type="hidden" id="plan_id" value="${plan_id}"
+    <label>Add Meal(s)</label><div class="add icon" id="add-meal-to-form"></div><br>
+    <div id="meal-input-container">
+    ${addMealInputs()}
+    </div>
+    <input type="submit" id="meal-form-submit" value="Update Plan"> 
+  
+  `)
+
+  const updateMealsSubmit = document.querySelector('#meal-form-submit')
+    updateMealsSubmit.addEventListener('click', (e) => {
+    mealFormHandler(e)
+  })
+
+  const addMealButton = document.querySelector('#add-meal-to-form')
+    addMealButton.addEventListener('click', (e) => {
+    addMealToForm()
+  })
 }

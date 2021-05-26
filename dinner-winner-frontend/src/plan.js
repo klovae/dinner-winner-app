@@ -35,7 +35,7 @@ class Plan {
     editIcon.className = 'edit icon'
     editIcon.setAttribute('data-plan-id', this.id)
     editIcon.addEventListener('click', () => {
-      this.editMode(div, mealsContainer, tagContainer)
+      this.editMode(div, mealsContainer)
     })
     title.appendChild(editIcon)
   
@@ -63,9 +63,11 @@ class Plan {
     
   }
 
-  editMode(div, mealsContainer, tagContainer) {
+  editMode(div, mealsContainer) {
     div.className = "plan edit-mode"
     div.insertAdjacentHTML('afterbegin', "<h3>EDITING PLAN</h3>")
+
+    createPlanUpdateForm(mealsContainer, this.id)
   }
   
 }
