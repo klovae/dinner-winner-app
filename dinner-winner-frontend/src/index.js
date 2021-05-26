@@ -68,7 +68,6 @@ function formHandler(e) {
   const descriptionInput = document.querySelector('#input-description').value;
   const tagInput = collectTags();
   const mealInput = collectMeals();
-  debugger
   postFetch(titleInput, descriptionInput, tagInput, mealInput)
 }
 
@@ -131,9 +130,9 @@ function postFetch(title, description, tags, meals) {
 
 function createPlanUpdateForm(mealsContainer, plan_id) {
   mealsContainer.insertAdjacentHTML('beforebegin', `
+    <h4>Add Meal(s)<div class="add icon" id="add-meal-to-form"></div></h4>
     <form id="add-meal-form">
-    <input type="hidden" id="plan_id" value="${plan_id}"
-    <label>Add Meal(s)</label><div class="add icon" id="add-meal-to-form"></div><br>
+    <input type="hidden" id="input-plan-id" value="${plan_id}">
     <div id="meal-input-container">
     ${addMealInputs()}
     </div>
@@ -150,4 +149,31 @@ function createPlanUpdateForm(mealsContainer, plan_id) {
     addMealButton.addEventListener('click', (e) => {
     addMealToForm()
   })
+}
+
+function mealFormHandler(e) {
+  e.preventDefault
+  const planId = document.querySelector('#input-plan-id').value
+  const mealInputs = collectMeals();
+  postMealsFetch(planId, mealInputs)
+}
+
+function postMealsFetch(plan_id, mealsData) {
+  fetch(`${PLANS_URL}/${plan_id}/meals`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Accept": "application/json"
+    },
+    body: JSON.stringify({
+      meals_attributes: mealsData,
+    })
+  })
+  .then(response => response.json())
+  .then(plan => {
+    let newPlan = new Plan(plan)
+    newPlan.render()
+    document.querySelector('#form-block').remove()
+  })
+
 }

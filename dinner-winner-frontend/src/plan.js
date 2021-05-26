@@ -68,6 +68,7 @@ class Plan {
     div.insertAdjacentHTML('afterbegin', "<h3>EDITING PLAN</h3>")
 
     createPlanUpdateForm(mealsContainer, this.id)
+    mealsContainer.insertAdjacentHTML('afterbegin', "<h4>Remove Meals (click trash icon)</h4>")
   }
   
 }
