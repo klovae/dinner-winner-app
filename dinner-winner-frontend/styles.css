@@ -46,6 +46,10 @@ div.plan {
   box-sizing: border-box;
 }
 
+div.edit-mode {
+  background-color: #fff0d1;
+}
+
 h4 {
   margin-block-start: .33em;
   margin-block-end: .33em;
@@ -78,6 +82,7 @@ button, input[type="submit"] {
 footer > p {
   text-align: center;
 }
+
 
 /* TAGS */
 
@@ -155,21 +160,32 @@ div.meal-form-div {
 }
 
 div.add {
-  background-image: url(assets/add.png);
-  background-size: contain;
-  width: 20px;
-  height: 20px;
-  background-repeat: no-repeat;
+  background-image: url(assets/add-gry.png);
+  transition: 0.2s linear;
+
 }
 
 div.add:hover {
-  background-image: url(assets/add-gry.png);
+  background-image: url(assets/add.png);
+}
+
+div.edit {
+  background-image: url(assets/edit-gry.png);
+  transition: 0.2s linear;
+}
+
+div.edit:hover {
+  background-image: url(assets/edit.png);
 }
 
 
 div.icon {
   background-color: transparent;
+  background-size: contain;
+  background-repeat: no-repeat;
   display: inline-block;
+  width: 20px;
+  height: 20px;
   text-decoration: none;
   cursor: pointer;
   margin-left: 5px;

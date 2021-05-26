@@ -24,11 +24,20 @@ class Plan {
 
   render() {
     let div = document.createElement('div');
+    div.setAttribute('data-plan-id', this.id)
     div.className = 'plan';
   
     let title = document.createElement('h3');
     title.innerText = this.title
     div.appendChild(title)
+
+    let editIcon = document.createElement('div');
+    editIcon.className = 'edit icon'
+    editIcon.setAttribute('data-plan-id', this.id)
+    editIcon.addEventListener('click', () => {
+      this.editMode(div, mealsContainer, tagContainer)
+    })
+    title.appendChild(editIcon)
   
     let description = document.createElement('p');
     description.innerText = this.description;
@@ -47,12 +56,16 @@ class Plan {
     div.appendChild(tagContainer)
     
     if (this.tags) {
-      debugger
       this.tags.forEach(tag => tag.render(tagContainer))
     }
   
     document.getElementById('content-wrap').appendChild(div);
     
+  }
+
+  editMode(div, mealsContainer, tagContainer) {
+    div.className = "plan edit-mode"
+    div.insertAdjacentHTML('afterbegin', "<h3>EDITING PLAN</h3>")
   }
   
 }
