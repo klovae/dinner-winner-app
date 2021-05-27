@@ -1,15 +1,11 @@
 class Api::MealsController < ApplicationController
 
   def create
-    meals = meal_params
-    binding.pry
-    new_meals = meals.map do |meal|
-      Meal.create(
-        title: meal["title"],
-        recipe_url: meal["recipe_url"],
-        notes: meal["notes"],
-        plan_id: meal["plan_id"]
-      )
+    plan = Plan.find_by(id: params[:plan_id])
+    new_meals = []
+    meal_params.each do |meal|
+      plan.meals << Meal.new(meal)
+      new_meals << plan.meals.last 
     end
     render json: new_meals.to_json( except: [:updated_at, :created_at] )
   end
@@ -17,7 +13,10 @@ class Api::MealsController < ApplicationController
   private
 
   def meal_params
-    params.require(:meals).permit(:title, :recipe_url, :notes, :plan_id)
+    params.require(:meal).map do |p|
+      p.permit(:title, :recipe_url, :notes)
+    end
   end
+
 
 end

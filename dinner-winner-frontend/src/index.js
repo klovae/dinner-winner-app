@@ -156,6 +156,7 @@ function mealFormHandler(e) {
   const planId = document.querySelector('#input-plan-id').value
   const mealInputs = collectMeals();
   postMealsFetch(planId, mealInputs)
+  
 }
 
 function postMealsFetch(plan_id, mealsData) {
@@ -166,15 +167,17 @@ function postMealsFetch(plan_id, mealsData) {
       "Accept": "application/json"
     },
     body: JSON.stringify({
-      meals: mealsData,
+      meal: mealsData
     })
   })
   .then(response => response.json())
   .then(meals => {
-    debugger
-    let newMeal = new Meal(meal)
-    let mealsContainer = document.querySelector(`div[data-plan-id="${plan_id}"] > div.meals-container`)
-    newMeal.render(mealsContainer)
+    meals.forEach( meal => {
+      let newMeal = new Meal(meal)
+      let mealsContainer = document.querySelector(`div[data-plan-id="${plan_id}"] > div.meals-container`)
+      newMeal.render(mealsContainer)
+    })
+  .then(document.querySelector('#add-meal-form').remove())
     
   })
 
