@@ -65,10 +65,26 @@ class Plan {
 
   editMode(div, mealsContainer) {
     div.className = "plan edit-mode"
-    div.insertAdjacentHTML('afterbegin', "<h3>EDITING PLAN</h3>")
+    div.insertAdjacentHTML('afterbegin', "<h3 id='edit-mode'>EDITING PLAN</h3>")
 
     createPlanUpdateForm(mealsContainer, this.id)
     mealsContainer.insertAdjacentHTML('afterbegin', "<h4>Remove Meals (click trash icon)</h4>")
+    
+    let mealIcons = mealsContainer.querySelectorAll(".meal-div > div.icon")
+    mealIcons.forEach(icon => {icon.className = "delete icon"})
+
+    mealsContainer.insertAdjacentHTML('beforeend', '<button id="done-editing">Done Editing</button>')
+    document.querySelector('#done-editing').addEventListener('click', (e) => this.closeEditMode(div, mealsContainer))
+  }
+
+  closeEditMode(div, mealsContainer) {
+    div.removeChild(div.querySelector('h3#edit-mode'));
+    div.removeChild(div.querySelector('h4'));
+    div.className = 'plan';
+    div.removeChild(div.querySelector('form'));
+    mealsContainer.removeChild(mealsContainer.querySelector('h4'));
+    mealsContainer.removeChild(mealsContainer.querySelector('button'));
+  
   }
   
 }

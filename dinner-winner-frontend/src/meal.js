@@ -13,7 +13,7 @@ class Meal {
     mealDiv.className = 'meal-div'
       
     mealDiv.innerHTML =  `
-      <a href="${this.recipe_url}">${this.title}</a>
+      <a href="${this.recipe_url}">${this.title}</a><div class="delete icon no-show" data-meal-id="${this.id}"></div>
       <p>${this.notes}</p>
     `
     container.appendChild(mealDiv)

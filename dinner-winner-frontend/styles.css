@@ -83,6 +83,12 @@ footer > p {
   text-align: center;
 }
 
+button#done-editing {
+  background-color: #353535;
+  color: #FFFFFF;
+  margin-bottom: 20px;
+}
+
 
 /* TAGS */
 
@@ -180,6 +186,19 @@ div.edit {
 
 div.edit:hover {
   background-image: url(assets/edit.png);
+}
+
+div.delete {
+  background-image: url(assets/delete-gry.png);
+  transition: 0.2s linear;
+}
+
+div.delete:hover {
+  background-image: url(assets/delete.png);
+}
+
+.icon.no-show {
+  display: none;
 }
 
 
