@@ -10,6 +10,13 @@ class Api::MealsController < ApplicationController
     render json: new_meals.to_json( except: [:updated_at, :created_at] )
   end
 
+  def destroy
+    meal = Meal.find_by(id: params[:id])
+    meal.destroy
+    render json: meal.to_json( except: [:updated_at, :created_at] )
+
+  end
+
   private
 
   def meal_params
