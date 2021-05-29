@@ -48,7 +48,7 @@ class Plan {
     div.appendChild(mealsContainer)
   
     if (this.meals) {
-      this.meals.forEach(meal => meal.render(mealsContainer))
+      this.meals.forEach(meal => meal.render("delete icon no-show", mealsContainer))
     }
 
     let tagContainer = document.createElement('div');
@@ -73,7 +73,7 @@ class Plan {
     let mealIcons = mealsContainer.querySelectorAll(".meal-div > div.icon")
     mealIcons.forEach(icon => {icon.className = "delete icon"})
 
-    mealsContainer.insertAdjacentHTML('beforeend', '<button id="done-editing">Done Editing</button>')
+    mealsContainer.insertAdjacentHTML('afterend', '<button id="done-editing">Done Editing</button>')
     document.querySelector('#done-editing').addEventListener('click', (e) => this.closeEditMode(div, mealsContainer))
   }
 
@@ -83,8 +83,10 @@ class Plan {
     div.className = 'plan';
     div.removeChild(div.querySelector('form'));
     mealsContainer.removeChild(mealsContainer.querySelector('h4'));
-    mealsContainer.removeChild(mealsContainer.querySelector('button'));
-  
+    div.removeChild(div.querySelector('button'));
+
+    let mealIcons = mealsContainer.querySelectorAll(".meal-div > div.icon")
+    mealIcons.forEach(icon => {icon.className = "delete icon no-show"})
   }
   
 }

@@ -175,10 +175,11 @@ function postMealsFetch(plan_id, mealsData) {
     meals.forEach( meal => {
       let newMeal = new Meal(meal)
       let mealsContainer = document.querySelector(`div[data-plan-id="${plan_id}"] > div.meals-container`)
-      newMeal.render(mealsContainer)
+      newMeal.render("delete icon", mealsContainer)
     })
-  .then(document.querySelector('#add-meal-form').remove())
-    
+    document.querySelectorAll('.meal-form-div > input').forEach(
+      input => input.value = ''
+    )    
   })
 
 }

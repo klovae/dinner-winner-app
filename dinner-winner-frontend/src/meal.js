@@ -7,15 +7,31 @@ class Meal {
     this.plan_id = mealData.plan_id
   }
   
-  render(container) {
+  render(classes, container) {
     let mealDiv = document.createElement('div');
     mealDiv.setAttribute('data-meal-id', this.id)
     mealDiv.className = 'meal-div'
       
     mealDiv.innerHTML =  `
-      <a href="${this.recipe_url}">${this.title}</a><div class="delete icon no-show" data-meal-id="${this.id}"></div>
+      <a href="${this.recipe_url}">${this.title}</a><div class="${classes}" data-meal-id="${this.id}"></div>
       <p>${this.notes}</p>
     `
+    mealDiv.querySelector('div').addEventListener('click', (e) => this.deleteMeal(mealDiv)) 
+
     container.appendChild(mealDiv)
   }
+
+  deleteMeal(mealDiv) {
+    fetch(`${PLANS_URL}/${this.plan_id}/meals/${this.id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(mealDiv.remove())
+  }
+
+  
 }
